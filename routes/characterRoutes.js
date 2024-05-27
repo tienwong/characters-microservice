@@ -1,10 +1,10 @@
 const express = require('express')
-const mockData = require('../mockData/characters.json') // Mock data until I set up database layer
+const { getCharactersBySeriesId } = require('../controllers/characterControllers')
 
 const router = express.Router({ mergeParams: true })
 
 router.get('/', (req, res) => {
-    const characters = mockData.filter(char => char.seriesId === Number(req.params.seriesId))
+    const characters = getCharactersBySeriesId(req.params.seriesId)
     if (characters.length === 0) {
         res.status(404).json({
             message: "No characters were found with the specified series ID."
