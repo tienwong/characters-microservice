@@ -1,5 +1,5 @@
 const express = require('express')
-const mockData = require('../mockData/characters.json')
+const mockData = require('../mockData/characters.json') // Mock data until I set up database layer
 
 const router = express.Router({ mergeParams: true })
 
