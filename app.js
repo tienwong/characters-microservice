@@ -1,9 +1,8 @@
 const express = require('express')
+const characterRouter = require('./routes/characterRoutes')
 
 const app = express()
 
-app.get('/', (req, res) => {
-    res.status(200).send('Hello from the root route!')
-})
+app.use('/:seriesId/characters', characterRouter)
 
 module.exports = app
