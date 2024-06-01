@@ -1,8 +1,6 @@
 const app = require('./app')
 const request = require('supertest')
 
-const mockCharactersBasePath = '/1/characters'
-
 describe('/series', () => {
     describe('GET /:seriesId', () => {
         it('should return 200 when at least one character is associated with the provided seriesId', async () => {
