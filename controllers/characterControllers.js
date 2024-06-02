@@ -6,8 +6,8 @@ const getByCharacterId = (characterId) => {
     return mockData.find(char => char.characterId === characterId)
 }
 
-const createNewCharacter = (username, seriesId) => {
-    const newCharacter = new Character(username, seriesId)
+const createNewCharacter = (username, seriesId, bio) => {
+    const newCharacter = new Character(username, seriesId, bio)
     mockData.push(newCharacter)
     console.log(mockData)   // for debugging
 }

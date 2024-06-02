@@ -1,10 +1,10 @@
 const crypto = require('crypto')
 
 class Character {
-    constructor(username, seriesId) {
+    constructor(username, seriesId, bio) {
         this.username = username
         this.seriesId = seriesId
-        this.bio = ''
+        this.bio = bio || ''
         this.posts = []
         this.characterId = crypto.randomUUID()
     }

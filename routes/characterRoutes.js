@@ -16,13 +16,13 @@ router.get('/:characterId', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    const { username, seriesId } = req.body
+    const { username, seriesId, bio } = req.body
     if (!username || !seriesId) {
         res.status(400).json({
             error: 'Username and seriesId are required to create a new character.'
         })
     }
-    createNewCharacter(username, seriesId)
+    createNewCharacter(username, seriesId, bio)
     res.status(200).json({
         message: 'New character successfully created.'
     })
