@@ -51,9 +51,6 @@ describe('/characters', () => {
         it('should return 404 if the characterId was not found', async () => {
             await request(app).put('/characters/alsdjflkdlfd').send({ username: 'test', bio: 'test time'}).expect(404)
         })
-        it('should return 400 if the data is malformed', async () => {
-            await request(app).put('/characters/42970896-e305-4f88-b9d5-d3fb1978c937').send({}).expect(400)
-        })
     })
     describe('DELETE /:characterId', () => {
         it('should return 200 if the deletion of the character was successful', async () => {

@@ -1,5 +1,5 @@
 const express = require('express')
-const { getByCharacterId, createNewCharacter } = require('../controllers/characterControllers')
+const { getByCharacterId, createNewCharacter, updateCharacter, deleteCharacter } = require('../controllers/characterControllers')
 
 const router = express.Router()
 
@@ -17,23 +17,39 @@ router.get('/:characterId', (req, res) => {
 
 router.post('/', (req, res) => {
     const { username, seriesId, bio } = req.body
-    if (!username || !seriesId) {
+    const createSuccessful = createNewCharacter(username, seriesId, bio)
+    if (!createSuccessful) {
         res.status(400).json({
             error: 'Username and seriesId are required to create a new character.'
         })
     }
-    createNewCharacter(username, seriesId, bio)
     res.status(200).json({
         message: 'New character successfully created.'
     })
 })
 
 router.put('/:characterId', (req, res) => {
-    res.send('Hello from GET /:characterId route of characters!')
+    const updateSuccessful = updateCharacter(req.params.characterId, req.body)
+    if (!updateSuccessful) {
+        res.status(404).json({
+            error: 'Could not find character with the specified characterId.'
+        })
+    }
+    res.status(200).json({
+        message: 'Character successfully updated'
+    })
 })
 
 router.delete('/:characterId', (req, res) => {
-    res.send('Hello from GET /:characterId route of characters!')
+    const deleteSuccessful = deleteCharacter(req.params.characterId)
+    if (!deleteSuccessful) {
+        res.status(404).json({
+            error: 'Could not find character with the specified characterId.'
+        })
+    }
+    res.status(200).json({
+        message: 'Character successfully deleted.'
+    })
 })
 
 module.exports = router

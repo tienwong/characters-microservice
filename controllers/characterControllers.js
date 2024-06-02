@@ -1,5 +1,5 @@
 const mockData = require('../mockData/characters.json') // dummy data until database layer is implemented
-const { assignIn } = require('lodash')
+const { assignIn, remove } = require('lodash')
 
 const Character = require('../models/Character')
 
@@ -8,19 +8,31 @@ const getByCharacterId = (characterId) => {
 }
 
 const createNewCharacter = (username, seriesId, bio) => {
+    if (!username || !seriesId) {
+        return false
+    }
     const newCharacter = new Character(username, seriesId, bio)
     mockData.push(newCharacter)
+    return true
 }
 
 const updateCharacter = (characterId, requestBody) => {
     const indexToBeUpdated = mockData.findIndex(char => char.characterId === characterId)
+    if (indexToBeUpdated === -1) {
+        return false
+    }
     // adds updated fields from the request body to the existing object
     assignIn(mockData[indexToBeUpdated], requestBody)
-    console.log(`Updated mockData at index ${indexToBeUpdated}: ${mockData[indexToBeUpdated]}`)
+    return true
 }
 
 const deleteCharacter = (characterId) => {
-    mockData = mockData.filter(char => char.characterId !== characterId)
+    const characterExists = mockData.find(char => char.characterId === characterId)
+    if (!characterExists) {
+        return false
+    }
+    remove(mockData, char => char.characterId === characterId)
+    return true
 }
 
 module.exports = {
