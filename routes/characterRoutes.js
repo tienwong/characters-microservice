@@ -1,12 +1,11 @@
 const express = require('express')
-const { getByCharacterId } = require('../controllers/characterControllers')
+const { getByCharacterId, createNewCharacter } = require('../controllers/characterControllers')
 
 const router = express.Router()
 
 router.get('/:characterId', (req, res) => {
     const character = getByCharacterId(req.params.characterId)
     if (!character) {
-        console.log('inside /:characterId')
         res.status(404).json({
             error: "The character with the specified characterId could not be found."
         })
@@ -17,7 +16,16 @@ router.get('/:characterId', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    res.send('Hello from POST / route of characters!')
+    const { username, seriesId } = req.body
+    if (!username || !seriesId) {
+        res.status(400).json({
+            error: 'Username and seriesId are required to create a new character.'
+        })
+    }
+    createNewCharacter(username, seriesId)
+    res.status(200).json({
+        message: 'New character successfully created.'
+    })
 })
 
 router.put('/:characterId', (req, res) => {

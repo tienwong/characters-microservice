@@ -9,20 +9,8 @@ class Character {
         this.characterId = crypto.randomUUID()
     }
 
-    get username() {
-        return this.username
-    }
-
-    get bio() {
-        return this.bio
-    }
-
-    set bio(text) {
-        this.bio = text
-    }
-
-    get posts() {
-        return this.posts
+    setBio(bio) {
+        this.bio = bio
     }
 
     addPost(post) {
