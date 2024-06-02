@@ -9,6 +9,10 @@ class Character {
         this.characterId = crypto.randomUUID()
     }
 
+    setUsername(username) {
+        this.username = username
+    }
+
     setBio(bio) {
         this.bio = bio
     }
