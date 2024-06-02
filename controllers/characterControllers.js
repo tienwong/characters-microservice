@@ -27,12 +27,8 @@ const updateCharacter = (characterId, requestBody) => {
 }
 
 const deleteCharacter = (characterId) => {
-    const characterExists = mockData.find(char => char.characterId === characterId)
-    if (!characterExists) {
-        return false
-    }
-    remove(mockData, char => char.characterId === characterId)
-    return true
+    const removedElements = remove(mockData, char => char.characterId === characterId)
+    return removedElements.length !== 0
 }
 
 module.exports = {
