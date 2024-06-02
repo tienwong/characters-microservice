@@ -4,11 +4,13 @@ const { assignIn, remove } = require('lodash')
 const Character = require('../models/Character')
 
 const getByCharacterId = (characterId) => {
-    return mockData.find(char => char.characterId === characterId)
+    const character = mockData.find(char => char.characterId === characterId)
+    return character || null
 }
 
 const getByUsername = (username) => {
-    return mockData.find(char => char.username === username)
+    const character = mockData.find(char => char.username === username)
+    return character || null
 }
 
 const createNewCharacter = (username, seriesId, bio) => {
