@@ -1,5 +1,5 @@
 const express = require('express')
-const { getByCharacterId, createNewCharacter, updateCharacter, deleteCharacter } = require('../controllers/characterControllers')
+const { getByCharacterId, getByUsername, createNewCharacter, updateCharacter, deleteCharacter } = require('../controllers/characterControllers')
 
 const router = express.Router()
 
@@ -8,6 +8,18 @@ router.get('/:characterId', (req, res) => {
     if (!character) {
         res.status(404).json({
             error: "The character with the specified characterId could not be found."
+        })
+    }
+    res.status(200).json({
+        character
+    })
+})
+
+router.get('/byUsername/:username', (req, res) => {
+    const character = getByUsername(req.params.username)
+    if (!character) {
+        res.status(404).json({
+            error: "The character with the specified username could not be found."
         })
     }
     res.status(200).json({

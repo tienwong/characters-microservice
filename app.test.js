@@ -22,7 +22,15 @@ describe('/characters', () => {
             await request(app).get(`/characters/sdfldsjlkfjd`).expect(404)
         })
     })
-     describe('POST /', () => {
+    describe('GET /byUsername/:username', () => {
+        it('should return 200 if the character with the specified username can be found', async () => {
+            await request(app).get(`/characters/byUsername/pinkiepiebestpony`).expect(200)
+        })
+        it('should return 404 if no character with that username exists', async () => {
+            await request(app).get(`/characters/byUsername/sdfldsjlkfjd`).expect(404)
+        })
+    })
+    describe('POST /', () => {
         it('should return 200 if the addition of the character to the database was successful', async () => {
             const goodPayload = {
                 username: 'crayoneater123',

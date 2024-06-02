@@ -7,6 +7,10 @@ const getByCharacterId = (characterId) => {
     return mockData.find(char => char.characterId === characterId)
 }
 
+const getByUsername = (username) => {
+    return mockData.find(char => char.username === username)
+}
+
 const createNewCharacter = (username, seriesId, bio) => {
     if (!username || !seriesId) {
         return false
@@ -33,6 +37,7 @@ const deleteCharacter = (characterId) => {
 
 module.exports = {
     getByCharacterId,
+    getByUsername,
     createNewCharacter,
     updateCharacter,
     deleteCharacter
