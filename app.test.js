@@ -38,4 +38,29 @@ describe('/characters', () => {
             await request(app).post('/characters').send(payloadWithNoUsername).expect(400)
         })
     })
+    describe('PUT /:characterId', () => {
+        it('should return 200 if the modification of the character was successful', async () => {
+            const payload = {
+                username: 'bartsimpson',
+                seriesId: 1,
+                bio: 'eat my shorts',
+                posts: []
+            }
+            await request(app).put('/characters/42970896-e305-4f88-b9d5-d3fb1978c937').send(payload).expect(200)
+        })
+        it('should return 404 if the characterId was not found', async () => {
+            await request(app).put('/characters/alsdjflkdlfd').send({ username: 'test', bio: 'test time'}).expect(404)
+        })
+        it('should return 400 if the data is malformed', async () => {
+            await request(app).put('/characters/42970896-e305-4f88-b9d5-d3fb1978c937').send({}).expect(400)
+        })
+    })
+    describe('DELETE /:characterId', () => {
+        it('should return 200 if the deletion of the character was successful', async () => {
+            await request(app).delete('/characters/42970896-e305-4f88-b9d5-d3fb1978c937').expect(200)
+        })
+        it('should return 404 if the characterId was not found', async () => {
+            await request(app).delete('/characters/alsdjflkdlfd').expect(404)
+        })
+    })
 })
