@@ -1,8 +1,7 @@
-const mockData = require('../mockData/characters.json') // Mock data until I set up database layer
+const mockData = require('../mockData/characters.json')
 
 const getByCharacterId = (characterId) => {
-    console.log('inside getByCharacterId')
-    return mockData.find(char => char.characterId === Number(characterId))
+    return mockData.find(char => char.characterId === characterId)
 }
 
 module.exports = {
