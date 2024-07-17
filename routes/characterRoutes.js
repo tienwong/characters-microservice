@@ -3,28 +3,30 @@ const { getByCharacterId, getByUsername, createNewCharacter, updateCharacter, de
 
 const router = express.Router()
 
-router.get('/:characterId', (req, res) => {
-    const character = getByCharacterId(req.params.characterId)
+router.get('/:characterId', async (req, res) => {
+    const character = await getByCharacterId(req.params.characterId)
     if (!character) {
         res.status(404).json({
             error: "The character with the specified characterId could not be found."
         })
+    } else {
+        res.status(200).json({
+            character
+        })
     }
-    res.status(200).json({
-        character
-    })
 })
 
-router.get('/byUsername/:username', (req, res) => {
-    const character = getByUsername(req.params.username)
+router.get('/byUsername/:username', async (req, res) => {
+    const character = await getByUsername(req.params.username)
     if (!character) {
         res.status(404).json({
             error: "The character with the specified username could not be found."
         })
+    } else {
+        res.status(200).json({
+            character
+        })
     }
-    res.status(200).json({
-        character
-    })
 })
 
 router.post('/', (req, res) => {

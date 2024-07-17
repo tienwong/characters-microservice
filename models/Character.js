@@ -1,29 +1,11 @@
-const crypto = require('crypto')
+const mongoose = require('mongoose')
 
-class Character {
-    constructor(username, seriesId, bio) {
-        this.username = username
-        this.seriesId = seriesId
-        this.bio = bio || ''
-        this.posts = []
-        this.characterId = crypto.randomUUID()
-    }
-
-    setUsername(username) {
-        this.username = username
-    }
-
-    setBio(bio) {
-        this.bio = bio
-    }
-
-    addPost(post) {
-        this.posts.push(post)
-    }
-
-    deletePost(post) {
-        this.posts = this.posts.filter(p => p.postId !== post.postId)
-    }
+const characterSchema = {
+    characterId: String,
+    username: String,
+    seriesId: String,
+    bio: String,
+    posts: Array
 }
 
-module.exports = Character
+module.exports = mongoose.model('Character', characterSchema)
