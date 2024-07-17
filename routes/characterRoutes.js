@@ -36,10 +36,11 @@ router.post('/', (req, res) => {
         res.status(400).json({
             error: 'Username and seriesId are required to create a new character.'
         })
+    } else {
+        res.status(200).json({
+            message: 'New character successfully created.'
+        })
     }
-    res.status(200).json({
-        message: 'New character successfully created.'
-    })
 })
 
 router.put('/:characterId', (req, res) => {
@@ -48,10 +49,11 @@ router.put('/:characterId', (req, res) => {
         res.status(404).json({
             error: 'Could not find character with the specified characterId.'
         })
+    } else {
+        res.status(200).json({
+            message: 'Character successfully updated'
+        })
     }
-    res.status(200).json({
-        message: 'Character successfully updated'
-    })
 })
 
 router.delete('/:characterId', (req, res) => {
@@ -60,10 +62,11 @@ router.delete('/:characterId', (req, res) => {
         res.status(404).json({
             error: 'Could not find character with the specified characterId.'
         })
+    } else {
+        res.status(200).json({
+            message: 'Character successfully deleted.'
+        })
     }
-    res.status(200).json({
-        message: 'Character successfully deleted.'
-    })
 })
 
 module.exports = router
