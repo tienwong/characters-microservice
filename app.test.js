@@ -14,15 +14,7 @@ describe('/series', () => {
 })
 
 describe('/characters', () => {
-    describe('GET /:characterId', () => {
-        it('should return 200 if the character with the specified characterId can be found', async () => {
-            await request(app).get(`/characters/42970896-e305-4f88-b9d5-d3fb1978c937`).expect(200)
-        })
-        it('should return 404 if no character with that characterId exists', async () => {
-            await request(app).get(`/characters/sdfldsjlkfjd`).expect(404)
-        })
-    })
-    describe('GET /byUsername/:username', () => {
+    describe('GET /:username', () => {
         it('should return 200 if the character with the specified username can be found', async () => {
             await request(app).get(`/characters/byUsername/pinkiepiebestpony`).expect(200)
         })

@@ -2,20 +2,6 @@ const crypto = require('crypto')
 
 const CharacterModel = require('../models/Character')
 
-const getByCharacterId = async (characterId) => {
-    let searchResult = null
-    await CharacterModel.findOne({
-        characterId
-    })
-    .then((doc) => {
-        searchResult = doc
-    })
-    .catch((err) => {
-        console.log(err)
-    })
-    return searchResult
-}
-
 const getByUsername = async (username) => {
     let searchResult
     await CharacterModel.findOne({
@@ -93,7 +79,6 @@ const deleteCharacter = async (characterId) => {
 }
 
 module.exports = {
-    getByCharacterId,
     getByUsername,
     createNewCharacter,
     updateCharacter,
