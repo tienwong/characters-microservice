@@ -16,9 +16,10 @@ const getByUsername = async (username) => {
     return searchResult || null
 }
 
-const createNewCharacter = (username, seriesId, bio) => {
+const createNewCharacter = async (username, seriesId, bio) => {
+    let result = null
     if (!username || !seriesId) {
-        return false
+        return result
     }
     const newCharacter = new CharacterModel({
         characterId: crypto.randomUUID(),
@@ -28,17 +29,15 @@ const createNewCharacter = (username, seriesId, bio) => {
         posts: []
     })
 
-    newCharacter.save()
+    await newCharacter.save()
         .then((doc) => {
-            // For debugging
-            console.log('Successfully saved to the Character database.')
+            result = doc
         })
         .catch((err) => {
             console.log(err)
-            return false
         })
     
-    return true
+    return result
 }
 
 const updateCharacter = async (characterId, requestBody) => {
@@ -49,7 +48,10 @@ const updateCharacter = async (characterId, requestBody) => {
             characterId
         },
         // what we want to update it to
-        requestBody,
+        {
+            characterId,
+            ...requestBody
+        },
         {
             new: true   // return updated doc
         }
@@ -69,7 +71,7 @@ const deleteCharacter = async (characterId) => {
         characterId
     })
     .then((response) => {
-        console.log(response)
+        console.log(`Character id ${response.characterId} was deleted successfully`)
         result = true
     })
     .catch((err) => {

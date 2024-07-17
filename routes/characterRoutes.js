@@ -1,5 +1,5 @@
 const express = require('express')
-const { getByCharacterId, getByUsername, createNewCharacter, updateCharacter, deleteCharacter } = require('../controllers/characterControllers')
+const { getByUsername, createNewCharacter, updateCharacter, deleteCharacter } = require('../controllers/characterControllers')
 
 const router = express.Router()
 
@@ -16,9 +16,9 @@ router.get('/:username', async (req, res) => {
     }
 })
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const { username, seriesId, bio } = req.body
-    const createSuccessful = createNewCharacter(username, seriesId, bio)
+    const createSuccessful = await createNewCharacter(username, seriesId, bio)
     if (!createSuccessful) {
         res.status(400).json({
             error: 'Username and seriesId are required to create a new character.'
@@ -30,8 +30,8 @@ router.post('/', (req, res) => {
     }
 })
 
-router.put('/:characterId', (req, res) => {
-    const updateSuccessful = updateCharacter(req.params.characterId, req.body)
+router.put('/:characterId', async (req, res) => {
+    const updateSuccessful = await updateCharacter(req.params.characterId, req.body)
     if (!updateSuccessful) {
         res.status(404).json({
             error: 'Could not find character with the specified characterId.'
@@ -43,8 +43,8 @@ router.put('/:characterId', (req, res) => {
     }
 })
 
-router.delete('/:characterId', (req, res) => {
-    const deleteSuccessful = deleteCharacter(req.params.characterId)
+router.delete('/:characterId', async (req, res) => {
+    const deleteSuccessful = await deleteCharacter(req.params.characterId)
     if (!deleteSuccessful) {
         res.status(404).json({
             error: 'Could not find character with the specified characterId.'
